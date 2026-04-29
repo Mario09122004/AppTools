@@ -4,6 +4,8 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { Slot } from 'expo-router';
+import Header from '@/components/my_components/header';
+import { SafeAreaView } from '@/components/ui/safe-area-view';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -28,7 +30,10 @@ export default function RootLayout() {
 
   return (
     <GluestackUIProvider mode="system">
-      <Slot />
+      <SafeAreaView >
+        <Header />
+        <Slot />
+      </SafeAreaView>
     </GluestackUIProvider>
   );
 }

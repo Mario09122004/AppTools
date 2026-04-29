@@ -23,17 +23,18 @@ import {
     CloseIcon,
     AntDesign,
 } from './icons_providers';
+import { useRouter } from 'expo-router';
 
 const menuItems = [
-    { provider: Foundation, icon: 'page-edit', text: 'Notes' },
-    { provider: FontAwesome, icon: 'birthday-cake', text: 'Birthdays' },
-    { provider: MaterialIcons, icon: 'casino', text: 'Randoms' },
-    { provider: FontAwesome, icon: 'calendar-check-o', text: 'Habits' },
-    { provider: Octicons, icon: 'tasklist', text: 'Task' },
-    { provider: MaterialIcons, icon: 'assignment', text: 'Projects' },
-    { provider: FontAwesome6, icon: 'money-bill-transfer', text: 'Loans' },
-    { provider: MaterialIcons, icon: 'message', text: 'Auto-Message' },
-    { provider: MaterialIcons, icon: 'auto-graph', text: 'Entrepreneurship' },
+    { provider: Foundation, icon: 'page-edit', text: 'Notes', route: '/notes' },
+    { provider: FontAwesome, icon: 'birthday-cake', text: 'Birthdays', route: '/birthdays' },
+    { provider: MaterialIcons, icon: 'casino', text: 'Randoms', route: '/randoms' },
+    { provider: FontAwesome, icon: 'calendar-check-o', text: 'Habits', route: '/habits' },
+    { provider: Octicons, icon: 'tasklist', text: 'Task', route: '/task' },
+    { provider: MaterialIcons, icon: 'assignment', text: 'Projects', route: '/projects' },
+    { provider: FontAwesome6, icon: 'money-bill-transfer', text: 'Loans', route: '/loans' },
+    { provider: MaterialIcons, icon: 'message', text: 'Auto-Message', route: '/auto_message' },
+    { provider: MaterialIcons, icon: 'auto-graph', text: 'Entrepreneurship', route: '/entrepreneurship' },
 ];
 
 export default function Menu() {
@@ -42,6 +43,14 @@ export default function Menu() {
     //Detect the theme in the device
     const colorScheme = useColorScheme();
     const iconColor = colorScheme === 'dark' ? 'white' : 'black';
+
+    //Prepare route
+    const router = useRouter();
+
+    const handlePress = (route: string) => {
+        router.push(route as any);
+        setShowDrawer(false);
+    };
 
     return (
         <>
@@ -77,7 +86,7 @@ export default function Menu() {
                                 const IconCmp = item.provider;
                                 return (
                                     <React.Fragment key={index}>
-                                        <Button variant="link" action="primary" className='border-none w-full h-auto flex-row items-center justify-center gap-4 py-3'>
+                                        <Button variant="link" action="primary" className='border-none w-full h-auto flex-row items-center justify-center gap-4 py-3' onPress={() => handlePress(item.route as string)}>
                                             <IconCmp name={item.icon as any} size={30} color={iconColor} />
                                             <ButtonText className='text-2xl'>
                                                 {item.text}
